@@ -1,0 +1,51 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 articles">
+            <h1 class="page-header">Новости:</h1>
+            <div class="add-article-button" ng-if="isAdmin()" ng-show="!addingNewArticle" ng-click="addArticle()">
+                <div>Добавить статью</div>
+            </div>
+
+            <div class="article" ng-show="addingNewArticle">
+                <div class="new-article">
+                    <div ng-include="'app/article/article.html'"></div>
+                </div>
+            </div>
+
+            <div ng-repeat="article in dotaArticles" class="article">
+                <div class="row" ng-if="editableArticle._id == article._id">
+                    <div ng-include="'app/article/article.html'"></div>
+                </div>
+                <div class="row" ng-hide="editableArticle._id == article._id">
+                    <div class="col-xs-2">
+                        <img src="{{article.imageUrl}}" class="article-image"/>
+                    </div>
+                    <div class="col-xs-9">
+                        <h4>{{article.title}}</h4>
+                        <h5>{{article.description}}</h5>
+                        <small>Добавил: {{article.addedBy.name}} {{showDate(article.added)}}</small>
+                        <small ng-if="article.added !== article.updated">Обновлена: {{article.updatedBy.name}} {{showDate(article.updated)}}</small>
+                    </div>
+
+                    <div class="col-xs-1 article-collapse">
+                        <span class="glyphicon glyphicon-chevron-down edit-article-icon" aria-hidden="true"
+                              ng-click="collapsedArticle = article._id" ng-show="!collapsedArticle"></span>
+                        <span class="glyphicon glyphicon-chevron-up collapse-article-icon" aria-hidden="true"
+                              ng-click="collapsedArticle = null" ng-show="collapsedArticle"></span>
+                        <span class="glyphicon glyphicon-edit collapse-article-icon" aria-hidden="true"
+                              ng-click="editArticle(article)" ng-show="isAdmin() && collapsedArticle != article._id && !addingNewArticle"></span>
+                    </div>
+                </div>
+                <div ta-bind ng-model="article.body" ng-show="collapsedArticle == article._id"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        Pro Dota Noob (c)
+    </div>
+</footer>
