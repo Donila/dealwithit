@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('dealwithitApp')
-    .controller('ArticleCtrl', function ($scope, $http, Auth) {
+    .controller('ArticleCtrl', function ($scope, $http, Auth, $routeParams, $location) {
         $scope.addedMessage = '';
 
         $scope.me = Auth.getCurrentUser();
 
-        if(!$scope.$parent.editableArticle) {
+        if(!$routeParams || !$routeParams.id) {
             $scope.newArticle = {
                 title: '',
                 body: '',
@@ -14,12 +14,17 @@ angular.module('dealwithitApp')
                 author: ''
             };
 
-            $scope.newArticle.addedBy = $scope.me._id;
-
             $scope.isUpdate = false;
         } else {
-            $scope.newArticle = $scope.$parent.editableArticle;
-            $scope.isUpdate = true;
+            $scope.loading = true;
+            $http.get('/api/articles/' + $routeParams.id).then(function(result) {
+                $scope.newArticle = result.data;
+                $scope.loading = false;
+                $scope.isUpdate = true;
+            }).then(function(error) {
+                $scope.loading = false;
+                console.log(error);
+            });
         }
 
         $scope.addArticle = function() {
@@ -38,13 +43,17 @@ angular.module('dealwithitApp')
                 }
                 $http.put('/api/articles/' + $scope.newArticle._id, $scope.newArticle);
 
-                $scope.cancel();
+                $location.path('/news/' + $scope.newArticle._id);
             } else {
                 $scope.newArticle.added = date;
+                $scope.newArticle.addedBy = $scope.me._id;
 
-                $http.post('/api/articles', $scope.newArticle);
-
-                $scope.cancel();
+                $http.post('/api/articles', $scope.newArticle).then(function(result) {
+                    $location.path('/news/' + result.data._id);
+                }).then(function(error) {
+                    console.log(error);
+                    $scope.cancel();
+                });
             }
         };
 
@@ -52,6 +61,10 @@ angular.module('dealwithitApp')
             $scope.newArticle.tags.push($scope.tag);
             console.log($scope.newArticle.tags.length);
             $scope.tag = '';
+        };
+
+        $scope.removeTag = function(index) {
+            $scope.newArticle.tags.splice(index, 1);
         };
 
         $scope.getSubmitText = function() {
@@ -63,7 +76,7 @@ angular.module('dealwithitApp')
         };
 
         $scope.cancel = function() {
-            $scope.$emit('article:edit:cancel');
+            $location.path('/');
         };
 
         $scope.delete = function() {
@@ -71,5 +84,9 @@ angular.module('dealwithitApp')
                 $http.delete('/api/articles/' + $scope.newArticle._id);
                 $scope.cancel();
             }
+        };
+
+        $scope.getUpdatedDate = function() {
+            return moment($scope.newArticle).fromNow();
         };
     });

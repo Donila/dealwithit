@@ -3,42 +3,25 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 articles">
-            <h1 class="page-header">Новости:</h1>
-            <div class="add-article-button" ng-if="isAdmin()" ng-show="!addingNewArticle" ng-click="addArticle()">
-                <div>Добавить статью</div>
-            </div>
+            <h1 class="page-header no-border">Новости:</h1>
 
-            <div class="article" ng-show="addingNewArticle">
-                <div class="new-article">
-                    <div ng-include="'app/article/article.html'"></div>
-                </div>
-            </div>
-
-            <div ng-repeat="article in dotaArticles" class="article">
-                <div class="row" ng-if="editableArticle._id == article._id">
-                    <div ng-include="'app/article/article.html'"></div>
-                </div>
+            <div ng-repeat="article in articles" class="article">
                 <div class="row" ng-hide="editableArticle._id == article._id">
                     <div class="col-xs-2">
-                        <img src="{{article.imageUrl}}" class="article-image"/>
+                        <a href="/news/{{article._id}}">
+                            <img src="{{article.imageUrl}}" class="article-image"/>
+                        </a>
                     </div>
-                    <div class="col-xs-9">
-                        <h4>{{article.title}}</h4>
+                    <div class="col-xs-10">
+                        <h4>
+                            <a href="/news/{{article._id}}">{{article.title}}</a>
+                            <a class="edit-article-link" href="/article/{{article._id}}">Редактировать</a>
+                        </h4>
                         <h5>{{article.description}}</h5>
-                        <small>Добавил: {{article.addedBy.name}} {{showDate(article.added)}}</small>
-                        <small ng-if="article.added !== article.updated">Обновлена: {{article.updatedBy.name}} {{showDate(article.updated)}}</small>
-                    </div>
-
-                    <div class="col-xs-1 article-collapse">
-                        <span class="glyphicon glyphicon-chevron-down edit-article-icon" aria-hidden="true"
-                              ng-click="collapsedArticle = article._id" ng-show="!collapsedArticle"></span>
-                        <span class="glyphicon glyphicon-chevron-up collapse-article-icon" aria-hidden="true"
-                              ng-click="collapsedArticle = null" ng-show="collapsedArticle"></span>
-                        <span class="glyphicon glyphicon-edit collapse-article-icon" aria-hidden="true"
-                              ng-click="editArticle(article)" ng-show="isAdmin() && collapsedArticle != article._id && !addingNewArticle"></span>
+                        <small>Добавлена: {{showDate(article.added)}}</small>
+                        <small ng-if="article.added !== article.updated">Обновлена:  {{showDate(article.updated)}}</small>
                     </div>
                 </div>
-                <div ta-bind ng-model="article.body" ng-show="collapsedArticle == article._id"></div>
             </div>
         </div>
     </div>

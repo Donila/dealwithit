@@ -16,7 +16,8 @@
     "lodash": "~2.4.1",
     "angular-socket-io": "~0.6.0",
     "textAngular": "*",
-    "moment": "~2.10.2"
+    "moment": "~2.10.2",
+    "angular-animate": "*"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
