@@ -1,7 +1,7 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
-<div ng-if="article">
-    <div class="article-image"></div>
+<div ng-if="article" class="article-container">
+    <div class="article-image-big">
+        <img src="{{article.imageUrl}}"/>
+    </div>
     <div class="article-title">
         {{article.title}}
     </div>

@@ -1,5 +1,3 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
 <div class="container">
     <div class="row">
         <!--<div class="col-sm-12">
@@ -11,6 +9,9 @@
             <p>Admin account is <code>admin@admin.com</code> / <code>admin</code></p>
         </div>-->
         <div class="col-sm-12">
+            <h1 class="center-text">Войти</h1>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-sm-offset-4 login-form">
             <form class="form" name="form" ng-submit="login(form)" novalidate>
 
                 <div class="form-group">
@@ -39,7 +40,7 @@
                 </div>
 
                 <div>
-                    <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                    <button class="btn btn-default btn-lg btn-login" type="submit">
                         Войти
                     </button>
                     <a class="btn btn-default btn-lg btn-register" href="/signup">
@@ -61,5 +62,4 @@
             </form>
         </div>
     </div>
-    <hr>
 </div>

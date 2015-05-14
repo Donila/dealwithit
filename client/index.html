@@ -34,7 +34,11 @@
 <![endif]-->
 
 <!-- Add your site or application content here -->
+<div ng-include="'components/navbar/navbar.html'"></div>
 <div ng-view=""></div>
+<footer class="footer">
+    <div>Pro Dota Noob (c)</div>
+</footer>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 <script>
@@ -99,11 +103,13 @@
 <script src="components/auth/auth.service.js"></script>
 <script src="components/auth/user.service.js"></script>
 <script src="components/error/error.controller.js"></script>
+<script src="components/localization/ru.js"></script>
 <script src="components/modal/modal.service.js"></script>
 <script src="components/mongoose-error/mongoose-error.directive.js"></script>
 <script src="components/navbar/navbar.controller.js"></script>
 <script src="components/socket/socket.service.js"></script>
 <!-- endinjector -->
 <!-- endbuild -->
+
 </body>
 </html>

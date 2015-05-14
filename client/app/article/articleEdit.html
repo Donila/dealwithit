@@ -1,10 +1,9 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
 <div class="container" ng-controller="ArticleCtrl">
     <div class="col-md-12">
         <h3 ng-if="isUpdate">Обновление статьи</h3>
         <h3 ng-if="!isUpdate">Добавление новой статьи</h3>
-        <div ng-show="isUpdate">Добавлена {{getUpdatedDate()}} пользователем {{newArticle.addedBy.name}}</div>
-        <div ng-show="newArticle.updatedBy && isUpdate">Последний раз обновлена {{moment(newArticle.updated).fromNow()}} пользователем {{newArticle.updatedBy.name}}</div>
+        <div ng-show="isUpdate">Добавлена {{fromNow(newArticle.added)}} пользователем {{newArticle.addedBy.name}}</div>
+        <div ng-show="newArticle.updatedBy && isUpdate">Последний раз обновлена {{fromNow(newArticle.updated)}} пользователем {{newArticle.updatedBy.name}}</div>
         <div ng-show="!newArticle.updatedBy && isUpdate">Ни разу не обновлялась</div>
         <form class="form" name="article" ng-submit="addArticle(form)" novalidate>
             <div class="form-group" ng-class="{ 'has-success': form.title.$valid && submitted,

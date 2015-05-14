@@ -86,7 +86,7 @@ angular.module('dealwithitApp')
             }
         };
 
-        $scope.getUpdatedDate = function() {
-            return moment($scope.newArticle).fromNow();
+        $scope.fromNow = function(date) {
+            return moment(date).fromNow();
         };
     });

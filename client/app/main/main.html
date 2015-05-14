@@ -1,5 +1,3 @@
-<div ng-include="'components/navbar/navbar.html'"></div>
-
 <div class="container">
     <div class="row">
         <div class="col-xs-12 articles">
@@ -7,15 +5,15 @@
 
             <div ng-repeat="article in articles" class="article">
                 <div class="row" ng-hide="editableArticle._id == article._id">
-                    <div class="col-xs-2">
+                    <div class="col-md-2 col-sm-3 col-xs-12">
                         <a href="/news/{{article._id}}">
                             <img src="{{article.imageUrl}}" class="article-image"/>
                         </a>
                     </div>
-                    <div class="col-xs-10">
+                    <div class="col-md-10 col-sm-9 col-xs-12">
                         <h4>
                             <a href="/news/{{article._id}}">{{article.title}}</a>
-                            <a class="edit-article-link" href="/article/{{article._id}}">Редактировать</a>
+                            <a class="edit-article-link" href="/article/{{article._id}}" ng-show="isAdmin()">Редактировать</a>
                         </h4>
                         <h5>{{article.description}}</h5>
                         <small>Добавлена: {{showDate(article.added)}}</small>
@@ -26,9 +24,3 @@
         </div>
     </div>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        Pro Dota Noob (c)
-    </div>
-</footer>
