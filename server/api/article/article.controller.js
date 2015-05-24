@@ -8,6 +8,8 @@ exports.index = function (req, res) {
     Article.find({})
         .populate('addedBy')
         .populate('updatedBy')
+        .select('title description added updated imageUrl')
+        .sort({added: -1})
         .exec(function (err, articles) {
             if (err) {
                 return handleError(res, err);

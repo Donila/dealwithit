@@ -12,7 +12,7 @@ angular.module('dealwithitApp')
         });
 
         $scope.showDate = function(date) {
-            return moment(date).format("Do MMMM YYYY в hh:mm");
+            return moment(date).format('Do MMMM YYYY в hh:mm');
         };
 
         $scope.fromNow = function(date) {

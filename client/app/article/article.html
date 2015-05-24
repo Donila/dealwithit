@@ -8,6 +8,7 @@
     <div class="article-body">
         <div ta-bind ng-model="article.body"></div>
     </div>
+    <div ng-include="'app/article/comments.html'"></div>
 </div>
 <div ng-if="!article">
     <div ng-include="'components/error/nothingToShow.html'"></div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dealwithitApp')
-    .controller('ArticleViewCtrl', function ($scope, $http, $routeParams, $location) {
+    .controller('ArticleViewCtrl', function ($scope, $http, $routeParams) {
         var articleId = '';
         if($routeParams && $routeParams.id) {
             articleId = $routeParams.id;
