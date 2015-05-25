@@ -23,6 +23,7 @@ angular.module('dealwithitApp')
 
         $scope.startAddComment = function() {
             $scope.addDisabled = false;
+            $scope.newComment.text = '';
         };
 
         $scope.addComment = function() {
