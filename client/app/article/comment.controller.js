@@ -23,7 +23,7 @@ angular.module('dealwithitApp')
 
         $scope.addComment = function() {
             $scope.newComment.addedBy = $scope.me._id;
-            $scope.newComment.added = new Date;
+            $scope.newComment.added = new Date();
 
             $http.post('/api/comments', $scope.newComment);
 
