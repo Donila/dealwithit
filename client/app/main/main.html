@@ -1,27 +1,6 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 articles">
-            <!--<h1 class="page-header no-border">Новости:</h1>
-
-            <div ng-repeat="article in articles" class="article">
-                <div class="row">
-                    <div class="col-md-2 col-sm-3 col-xs-12">
-                        <a href="/news/{{article._id}}">
-                            <img src="{{article.imageUrl}}" class="article-image"/>
-                        </a>
-                    </div>
-                    <div class="col-md-10 col-sm-9 col-xs-12">
-                        <h4>
-                            <a href="/news/{{article._id}}">{{article.title}}</a>
-                            <a class="edit-article-link" href="/article/{{article._id}}" ng-show="isAdmin()">Редактировать</a>
-                        </h4>
-                        <h5>{{article.description}}</h5>
-                        <small>Добавлена: {{showDate(article.added)}}</small>
-                        <small ng-if="article.added !== article.updated">Обновлена:  {{showDate(article.updated)}}</small>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
-                </div>
-            </div>-->
             <div ng-repeat="article in articles" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 no-padding">
                 <a href="/news/{{article._id}}">
                     <img class="article-image" src="{{article.imageUrl}}" />

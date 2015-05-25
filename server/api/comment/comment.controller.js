@@ -13,10 +13,10 @@ exports.index = function (req, res) {
     });
 };
 
-// Get a single comment
+// Get comments for article by articleId
 exports.show = function (req, res) {
     Comment.find()
-        .where('article').equals(req.params.id)
+        .where({'article': req.params.id})
         .populate('addedBy')
         .exec(function(err, comments) {
             if (err) {
