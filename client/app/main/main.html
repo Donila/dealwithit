@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 articles">
-            <h1 class="page-header no-border">Новости:</h1>
+            <!--<h1 class="page-header no-border">Новости:</h1>
 
             <div ng-repeat="article in articles" class="article">
-                <div class="row" ng-hide="editableArticle._id == article._id">
+                <div class="row">
                     <div class="col-md-2 col-sm-3 col-xs-12">
                         <a href="/news/{{article._id}}">
                             <img src="{{article.imageUrl}}" class="article-image"/>
@@ -19,7 +19,20 @@
                         <small>Добавлена: {{showDate(article.added)}}</small>
                         <small ng-if="article.added !== article.updated">Обновлена:  {{showDate(article.updated)}}</small>
                     </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"></div>
                 </div>
+            </div>-->
+            <div ng-repeat="article in articles" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 no-padding">
+                <a href="/news/{{article._id}}">
+                    <img class="article-image" src="{{article.imageUrl}}" />
+                </a>
+                <a href="/news/{{article._id}}">
+                    <div class="article-desc">
+                        <h4>{{article.title}}</h4>
+                        <span>{{article.description}}</span>
+                        <div>{{showDate(article.added)}}</div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
