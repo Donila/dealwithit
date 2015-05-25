@@ -1,7 +1,10 @@
 <div class="comments" ng-controller="CommentCtrl">
     <h3 class="center-text">Комментарии</h3>
-    <div class="comment-add">
-        <form ng-if="me.name" class="form" name="comment" ng-submit="addComment(form)" novalidate>
+    <div class="comment-add-start" ng-if="me.name" ng-show="addDisabled" ng-click="startAddComment()">
+        <span>Добавить свой очень важный комментарий</span>
+    </div>
+    <div class="comment-add" ng-if="me.name" ng-show="!addDisabled">
+        <form class="form" name="comment" ng-submit="addComment(form)" novalidate>
             <div>
                 <span>{{me.name}}:</span>
             </div>

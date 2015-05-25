@@ -19,7 +19,11 @@ angular.module('dealwithitApp')
         $scope.me = Auth.getCurrentUser();
         $scope.isAdmin = Auth.isAdmin();
 
-        $scope.addDisabled = false;
+        $scope.addDisabled = true;
+
+        $scope.startAddComment = function() {
+            $scope.addDisabled = false;
+        };
 
         $scope.addComment = function() {
             $scope.newComment.addedBy = $scope.me._id;

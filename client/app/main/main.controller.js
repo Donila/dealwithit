@@ -22,4 +22,28 @@ angular.module('dealwithitApp')
         $scope.isAdmin = function() {
             return Auth.isAdmin();
         };
+
+        $scope.showArticle = null;
+
+        $scope.isShowCommentsCount = function(article) {
+            if(!$scope.showArticle) {
+                return false;
+            }
+            return $scope.showArticle._id == article._id;
+        };
+
+        $scope.showCommentsCount = function(article) {
+            if($scope.showArticle && $scope.showArticle._id == article._id) {
+                $scope.showArticle = null;
+            } else {
+                if(!_.isNumber(article.commentsCount)) {
+                    $http.get('api/comments/' + article._id + '/count').then(function(result) {
+                        var found = _.findWhere($scope.articles, { _id: result.data.id });
+                        found.commentsCount = result.data.commentsCount;
+                    });
+                }
+
+                $scope.showArticle = article;
+            }
+        }
     });

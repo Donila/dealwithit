@@ -1,15 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col-xs-12 articles">
-            <div ng-repeat="article in articles" class="col-lg-3 col-md-4 col-sm-6 col-xs-12 no-padding">
+            <div ng-repeat="article in articles" class="article col-lg-3 col-md-4 col-sm-6 col-xs-12 no-padding" ng-mouseenter="showCommentsCount(article)" ng-mouseleave="showCommentsCount(article)">
                 <a href="/news/{{article._id}}">
                     <img class="article-image" src="{{article.imageUrl}}" />
                 </a>
                 <a href="/news/{{article._id}}">
-                    <div class="article-desc">
+                    <div class="article-desc" ng-class="{'hovered-article-desc': isShowCommentsCount(article)}">
                         <h4>{{article.title}}</h4>
                         <span>{{article.description}}</span>
                         <div>{{showDate(article.added)}}</div>
+                        <div class="article-comments-count" ng-show="isShowCommentsCount(article)" ng-class="{'hovered-article': isShowCommentsCount(article)}">Комментариев: {{article.commentsCount}}</div>
                     </div>
                 </a>
             </div>

@@ -26,6 +26,16 @@ exports.show = function (req, res) {
         });
 };
 
+// Get comments for article by articleId
+exports.count = function (req, res) {
+    Comment.count({'article': req.params.id}, function(err, comments) {
+        if (err) {
+            return handleError(res, err);
+        }
+        return res.json(200, {id: req.params.id, commentsCount: comments});
+    });
+};
+
 // Creates a new comment in the DB.
 exports.create = function (req, res) {
     Comment.create(req.body, function (err, comment) {
