@@ -14,7 +14,9 @@ var ArticleSchema = new Schema({
     updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
     author: String,
     added: Date,
-    updated: Date
+    updated: Date,
+    ratings: [{ type: Schema.Types.ObjectId, ref: 'Rating' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 });
 
 module.exports = mongoose.model('Article', ArticleSchema);

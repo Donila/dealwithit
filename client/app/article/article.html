@@ -5,6 +5,12 @@
     <div class="article-title">
         {{article.title}}
         <div>{{article.description}}</div>
+        <div class="article-ratings">
+            <rating ng-model="rate.value" max="5" readonly="isReadonlyRating" on-hover="hoveringOver(value)" on-leave="overStar = null" ng-click="saveRating()"></rating>
+            <span ng-if="rate._id && isReadonlyRating" class="alert alert-success">{{alreadyVoted}}</span>
+            <button class="btn btn-default" ng-if="rate._id && isReadonlyRating" ng-click="revote()">Переголосовать</button>
+        </div>
+        <div class="article-average-rating">Средний рейтинг: {{averageRating}}</div>
     </div>
     <div class="article-body">
         <div ta-bind ng-model="article.body"></div>
