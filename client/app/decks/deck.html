@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-3">
+        <h3>{{deck.name}}</h3>
+        <h4>{{deck.author.name}}</h4>
+        <button class="btn btn-default" ng-show="me._id == deck.author._id">Редактировать</button>
+    </div>
+    <div class="col-md-3">
+        <div ng-repeat="deckCard in deck.cards">
+            <div class="row card-cut" style="background-image: url('{{deckCard.card.img}}')" ng-click="hoverCard(deckCard)" ng-mouseleave="hoveredCard = null;">
+                <div class="col-md-1 manacost">
+                    <span>{{deckCard.card.cost}}</span>
+                </div>
+                <div class="col-md-10 card-name">
+                    <span>{{deckCard.card.name}}</span>
+                </div>
+                <div class="col-md-1 cards-count">
+                    <span>{{deckCard.count}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <img src="{{hoveredCard.card.img}}" />
+    </div>
+</div>
+

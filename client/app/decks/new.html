@@ -1,0 +1,11 @@
+<div>
+    <h1 style="margin-left: 35%;">Выберите класс</h1>
+
+    <div style="margin-left: 7%;">
+        <div ng-repeat="h in heroes" ng-click="pickHero(h)" style="float: left; margin-left: 10px;">
+            <a href="/hs/decks/new/{{h.playerClass}}">
+                <img src="{{h.img}}" style="max-width: 170px;"/>
+            </a>
+        </div>
+    </div>
+</div>

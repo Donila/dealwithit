@@ -1,0 +1,9 @@
+<h1>Все колоды собраны тут.</h1>
+<div ng-repeat="deck in decks">
+    <a href="/hs/decks/{{deck._id}}">
+        <h5>{{deck.name}}</h5>
+        <h6>{{deck.author.name}}</h6>
+        <span>{{deck.added}}</span>
+    </a>
+
+</div>

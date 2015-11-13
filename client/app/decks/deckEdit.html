@@ -1,0 +1,94 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="hero col-md-1 hidden-xs">
+            <img src="{{hero.img}}" style="max-width: 160px;"/>
+            <a href="/hs/decks/new">
+                <button class="btn btn-info" style="margin-left: 23px;">Другой герой</button>
+            </a>
+        </div>
+
+        <div class="col-md-1 hidden-xs" style="padding-top: 20%; text-align: center;">
+            <button ng-click="prevPage()" ng-show="prevEnabled()" class="btn btn-default">
+                <i class="fa fa-arrow-left fa-3x"></i>
+            </button>
+        </div>
+
+        <div class="col-md-6">
+            <div class="row" style="padding-top: 15px;">
+                Страница: {{cardsPage + 1}}/{{pages}}
+                Карт в текущем фильтре: {{cardsInFilter}}
+                Всего базовых кард: {{basicCards.length}}
+                Всего классовых кард: {{classCards.length}}
+                <button class="btn btn-default" ng-click="switchCardTypes()">{{getCardsTypesText()}}</button>
+            </div>
+            <div class="row cards-filter">
+                <div class="mana-crystals">
+                    <div ng-repeat="manacrystal in manacrystals" ng-click="clickCrystal(manacrystal)" ng-class="{selected: selectedCrystal == manacrystal}"><span>{{manacrystal}}</span></div>
+
+                    <div style="float: left;width: 30%;background: none;">
+                        <input class="form-control" placeholder="Поиск..." ng-model="filterText" ng-change="filterChanged()"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-picker">
+                <div class="row">
+                    <div ng-repeat="card in filteredCards"
+                         style="background-image: url('{{card.img}}')"
+                         class="card-pick col-md-4"
+                         ng-click="addToDeck(card)"
+                         ng-class="{'cant-add-card': cantAddCard(card)}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1" style="padding-top: 20%; text-align: center;">
+            <button ng-click="nextPage()" ng-show="nextEnabled()" class="btn btn-default">
+                <i class="fa fa-arrow-right fa-3x"></i>
+            </button>
+        </div>
+
+        <div class="row visible-xs">
+            <button ng-click="prevPage()" ng-show="prevEnabled()" class="btn btn-default">
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button ng-click="nextPage()" ng-show="nextEnabled()" class="btn btn-default">
+                <i class="fa fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <div class="col-md-3">
+            <div>Карт: {{getCardsInDeckCount()}}/30</div>
+            <div style="padding-top: 15px;">
+                <input type="text" ng-model="deck.name" placeholder="Назовите колоду" class="form-control"/>
+            </div>
+
+            <div style="padding-top: 15px;">
+                <div ng-repeat="deckCard in deck.cards">
+                    <div class="row card-cut no-margin"
+                         ng-click="removeFromDeck(deckCard)"
+                         style="background-image: url('{{deckCard.card.img}}')">
+                        <div class="col-md-1 manacost">
+                            <span>{{deckCard.card.cost}}</span>
+                        </div>
+                        <div class="col-md-10 card-name">
+                            <span>{{deckCard.card.name}}</span>
+                        </div>
+                        <div class="col-md-1 cards-count">
+                            <span>{{deckCard.count}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding-top: 15px;">
+                <button class="btn btn-warning" ng-click="deck.cards = [];" ng-disabled="getCardsInDeckCount() == 0">
+                    Заного
+                </button>
+                <button class="btn btn-success" ng-click="saveDeck()" ng-disabled="getCardsInDeckCount() != 30">Сохранить
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

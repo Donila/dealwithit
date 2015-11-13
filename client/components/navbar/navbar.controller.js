@@ -3,7 +3,7 @@
 angular.module('dealwithitApp')
     .controller('NavbarCtrl', function ($scope, $location, Auth) {
         $scope.menu = [{
-            'title': 'На главную',
+            'title': 'Новости',
             'link': '/'
         }];
 
