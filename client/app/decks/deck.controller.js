@@ -36,16 +36,12 @@ angular.module('dealwithitApp')
                 card.type !== 'Hero' &&
                 card.type !== 'Hero Power' &&
                 card.type !== 'Enchantment' &&
-                card.playerClass == $routeParams.hero &&
+                card.playerClass === $routeParams.hero &&
                 card.flavor;
         };
 
         $http.get('/api/cards?locale=ruRU', { cache: true }).success(function(cards) {
-            for(var i in cards) {
-                $scope.cards.push(cards[i]);
-            }
-
-            $scope.cards = _.flatten($scope.cards);
+            $scope.cards = cards;
 
             if($routeParams.id) {
                 $http.get('/api/decks/' + $routeParams.id).success(function(result) {
@@ -80,11 +76,11 @@ angular.module('dealwithitApp')
             $scope.loadingCards = false;
         });
 
-        $http.get('/api/cards/types/Hero?locale=ruRU', { cache: true }).success(function (heroes) {
+        $http.get('/api/cards/types/Hero?locale=enUS', { cache: true }).success(function (heroes) {
             $scope.heroes = [];
             for(var i in heroes.body) {
                 var hero = heroes.body[i];
-                if(hero.cardSet == 'Basic') {
+                if(hero.cardSet === 'Basic') {
                     $scope.heroes.push(hero);
                 }
             }
@@ -118,7 +114,7 @@ angular.module('dealwithitApp')
 
         $scope.filterCardsForPaging = function() {
             var cards;
-            if($scope.cardsType == 'Basic') {
+            if($scope.cardsType === 'Basic') {
                 cards = $scope.basicCards;
             } else {
                 cards = $scope.classCards;
@@ -135,7 +131,7 @@ angular.module('dealwithitApp')
                                 return card.cost > 6;
                             }
 
-                            return card.cost == crystals;
+                            return card.cost === crystals;
                         }
                     });
                 }
@@ -172,7 +168,7 @@ angular.module('dealwithitApp')
 
         $scope.cardsType = 'Basic';
         $scope.switchCardTypes = function() {
-            if($scope.cardsType != 'Basic') {
+            if($scope.cardsType !== 'Basic') {
                 $scope.cardsType = 'Basic';
                 $scope.cardsPage = 0;
             } else {
@@ -184,7 +180,7 @@ angular.module('dealwithitApp')
         };
 
         $scope.getCardsTypesText = function() {
-            if($scope.cardsType == 'Basic') {
+            if($scope.cardsType === 'Basic') {
                 return 'К классовым картам';
             } else {
                 return 'К базовым картам';
@@ -199,16 +195,16 @@ angular.module('dealwithitApp')
                 return;
             }
 
-            if(cardInDeck && foundCard.count == 2) {
+            if(cardInDeck && foundCard.count === 2) {
                 //alert('Нельзя положить больше 2ух копий одинаковой карты.');
                 return;
             }
-            if(card.rarity == 'Legendary' && cardInDeck) {
+            if(card.rarity === 'Legendary' && cardInDeck) {
                 //alert('Нельзя положить в колоду 2 одинаковые легендарные карты.');
                 return;
             }
 
-            if(foundCard && foundCard.count == 1) {
+            if(foundCard && foundCard.count === 1) {
                 foundCard.count = 2;
             } else {
                 $scope.deck.cards.push({card: card, count: 1});
@@ -220,10 +216,10 @@ angular.module('dealwithitApp')
         $scope.removeFromDeck = function(card) {
             var foundCard = _.findWhere($scope.deck.cards, { card: card.card });
             if(foundCard) {
-                if(foundCard.count == 1) {
+                if(foundCard.count === 1) {
                     _.remove($scope.deck.cards, { card: card.card });
                 }
-                if(foundCard.count == 2) {
+                if(foundCard.count === 2) {
                     foundCard.count = 1;
                 }
             }
@@ -240,7 +236,7 @@ angular.module('dealwithitApp')
                 return false;
             }
 
-            return _.findWhere(_pluck($scope.deck.cards, 'card'), { cardId: card.cardId }).count == 2;
+            return _.findWhere(_.pluck($scope.deck.cards, 'card'), { cardId: card.cardId }).count === 2;
         };
 
         $scope.getCardsInDeckCount = function() {
@@ -262,7 +258,7 @@ angular.module('dealwithitApp')
             if(!foundCard) {
                 return false;
             }
-            return foundCard.count == 2 || (foundCard.card.rarity == 'Legendary' && foundCard.count == 1);
+            return foundCard.count === 2 || (foundCard.card.rarity === 'Legendary' && foundCard.count === 1);
         };
 
         $scope.saveDeck = function() {
@@ -290,7 +286,7 @@ angular.module('dealwithitApp')
         $scope.selectedCrystal = '';
 
         $scope.clickCrystal = function(crystal) {
-            if($scope.selectedCrystal == crystal) {
+            if($scope.selectedCrystal === crystal) {
                 $scope.selectedCrystal = '';
             } else {
                 $scope.cardsPage = 0;

@@ -34,11 +34,12 @@
             <div class="card-picker">
                 <div class="row">
                     <div ng-repeat="card in filteredCards"
-                         style="background-image: url('{{card.img}}')"
-                         class="card-pick col-md-4"
+                         class="col-md-4"
                          ng-click="addToDeck(card)"
                          ng-class="{'cant-add-card': cantAddCard(card)}">
+                        <img src="{{card.img}}" class="card-pick">
                     </div>
+                    <!--style="background-image: url('{{card.img}}')"-->
                 </div>
             </div>
         </div>

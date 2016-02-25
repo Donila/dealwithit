@@ -9,6 +9,8 @@ angular.module('dealwithitApp')
         $scope.articleId = '';
 
         $scope.me = Auth.getCurrentUser();
+        
+        $scope.isLoggedIn = Auth.isLoggedIn();
 
         $scope.isReadonlyRating = false;
 
@@ -31,7 +33,7 @@ angular.module('dealwithitApp')
                         value: 0
                     };
                 }
-            })
+            });
         }
 
         var calculateAverageRating = function(ratings) {
@@ -44,7 +46,7 @@ angular.module('dealwithitApp')
         };
 
         $scope.saveRating = function() {
-            if(!$scope.isReadonlyRating) {
+            if(!$scope.voted) {
                 if($scope.articleId) {
                     if(!$scope.rate._id) {
                         // create
@@ -55,21 +57,21 @@ angular.module('dealwithitApp')
                             $scope.rate = result.data;
                         });
 
-                        $scope.isReadonlyRating = true;
+                        $scope.voted = true;
                     } else {
                         // update
                         $http.put('/api/ratings/' + $scope.rate._id, $scope.rate).then(function(result) {
                             $scope.rate = result.data;
                         });
 
-                        $scope.isReadonlyRating = true;
+                        $scope.voted = true;
                     }
                 }
             }
         };
 
         $scope.revote = function() {
-            $scope.isReadonlyRating = false;
+            $scope.voted = false;
         };
 
         $scope.hoveringOver = function(value) {

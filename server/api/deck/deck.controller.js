@@ -3,6 +3,15 @@
 var _ = require('lodash');
 var Deck = require('./deck.model');
 
+var filterCards = function (cards) {
+    var newCards = [];
+    for (var i in cards) {
+        newCards.push({cardId: cards[i].card.cardId, count: cards[i].count});
+    }
+
+    return newCards;
+};
+
 // Get list of decks
 exports.index = function (req, res) {
     Deck.find({})
@@ -64,15 +73,6 @@ exports.update = function (req, res) {
             return res.json(200, deck);
         });
     });
-};
-
-var filterCards = function (cards) {
-    var newCards = [];
-    for (var i in cards) {
-        newCards.push({cardId: cards[i].card.cardId, count: cards[i].count});
-    }
-
-    return newCards;
 };
 
 // Deletes a deck from the DB.

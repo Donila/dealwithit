@@ -7,8 +7,8 @@ var effects = ['Battlecry', 'Divine shield', 'Deathrattle', 'Charge', 'Windfury'
     'Spell Damage', 'Secret', 'Inspire', 'Mega-WindFury', 'Overload'];
 var types = ['Creature', 'Spell', 'Weaporn', 'Hero'];
 var creatureTypes = ['Beast', 'Dragon', 'Pirate', 'Creature', 'Summon', 'Mech'];
-var rarities = ['Default', 'Common', 'Rare', 'Epic', 'Legendary'];
-var playerClasses = ['Common', 'Mage', 'Hunter', 'Warrior', 'Warlock', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest'];
+var rarities = ['Default', 'Common', 'Rare', 'Epic', 'Legendary', 'Free'];
+var playerClasses = ['Common', 'Mage', 'Hunter', 'Warrior', 'Warlock', 'Druid', 'Rogue', 'Shaman', 'Paladin', 'Priest', 'Dream'];
 var languages = ['en', 'ru'];
 
 var CardSchema = new Schema({

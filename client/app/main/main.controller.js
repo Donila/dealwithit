@@ -29,11 +29,11 @@ angular.module('dealwithitApp')
             if(!$scope.showArticle) {
                 return false;
             }
-            return $scope.showArticle._id == article._id;
+            return $scope.showArticle._id === article._id;
         };
 
         $scope.showCommentsCount = function(article) {
-            if($scope.showArticle && $scope.showArticle._id == article._id) {
+            if($scope.showArticle && $scope.showArticle._id === article._id) {
                 $scope.showArticle = null;
             } else {
                 if(!_.isNumber(article.commentsCount)) {
@@ -45,5 +45,5 @@ angular.module('dealwithitApp')
 
                 $scope.showArticle = article;
             }
-        }
+        };
     });

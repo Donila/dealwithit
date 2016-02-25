@@ -6,5 +6,9 @@ angular.module('dealwithitApp')
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
         controller: 'AdminCtrl'
+      })
+      .when('/admin/cards', {
+        templateUrl: 'app/admin/cards.html',
+        controller: 'AdminCardsCtrl'
       });
   });

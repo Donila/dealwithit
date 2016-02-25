@@ -6,11 +6,11 @@
         {{article.title}}
         <div>{{article.description}}</div>
         <div class="article-ratings">
-            <rating ng-model="rate.value" max="5" readonly="isReadonlyRating" on-hover="hoveringOver(value)" on-leave="overStar = null" ng-click="saveRating()"></rating>
-            <span ng-if="rate._id && isReadonlyRating" class="alert alert-success">{{alreadyVoted}}</span>
-            <button class="btn btn-default" ng-if="rate._id && isReadonlyRating" ng-click="revote()">Переголосовать</button>
+            <rating ng-model="rate.value" max="5" ng-if="!voted" readonly="!isLoggedIn" on-hover="hoveringOver(value)" on-leave="overStar = null" ng-click="saveRating()"></rating>
+            <rating ng-model="averageRating" max="5" ng-if="voted" readonly="!isLoggedIn" on-hover="hoveringOver(value)" on-leave="overStar = null" ng-click="saveRating()"></rating>
+            <span ng-if="rate._id && isLoggedIn" class="alert alert-success">{{alreadyVoted}}</span>
+            <button class="btn btn-default" ng-if="rate._id && isLoggedIn" ng-click="revote()">Переголосовать</button>
         </div>
-        <div class="article-average-rating">Средний рейтинг: {{averageRating}}</div>
     </div>
     <div class="article-body">
         <div ta-bind ng-model="article.body"></div>
