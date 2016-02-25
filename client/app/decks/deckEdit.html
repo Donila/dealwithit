@@ -37,9 +37,10 @@
                          class="col-md-4"
                          ng-click="addToDeck(card)"
                          ng-class="{'cant-add-card': cantAddCard(card)}">
-                        <img src="{{card.img}}" class="card-pick">
+                        <img sb-load="onImgLoad($event, card)" ng-src="{{getCardSrc(card)}}" class="card-pick" alt="{{card.name}}" title="{{card.name}}">
+                        <!--<img src="assets/images/legend-cardback-168x250.png" ng-hide="card.loaded === true" class="card-pick" style="height: auto;" alt="card.name" title="{{card.name}}">-->
+                        <!--<div ng-hide="card.loaded === true">({{card.cost}}) {{card.name}}</div>-->
                     </div>
-                    <!--style="background-image: url('{{card.img}}')"-->
                 </div>
             </div>
         </div>

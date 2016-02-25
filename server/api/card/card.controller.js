@@ -9,41 +9,55 @@ var migration = require('../../components/hearthstone/migration');
 // Get list of cards
 exports.index = function(req, res) {
 	var locale = req.params.locale || 'ruRU';
-	mashape.getInfo(function(info) {
-		info = info.body;
-		ExternalCards.find()
-			.where({'patch': info.patch })
-			.exec(function(err, externalCards) {
-				if (err) {
-					return handleError(res, err);
-				}
-				if(externalCards.length > 0) {
-					Cards.find({}).exec(function(err, cards) {
-						if (err) {
-							return handleError(res, err);
-						}
-						return res.json(200, cards);
-					});
-				} else {
-					mashape.get('?locale=' + locale, function(result) {
-						ExternalCards.create({ patch: info.patch, cards: result.body }, function(err, cards) {
-							if (err) {
-								return handleError(res, err);
-							}
-							
-							migration.fromHearthStoneApiToMongoCards(result).then(function(addedCards) {
-								console.log('Migration complete, cards overall: ' + addedCards.length);
-								
-								return res.json(200, addedCards);
-							});
-						});
-					});
-				}
-			});
-	})
 
+    Cards.find({locale: locale}).exec(function(err, cards) {
+        if (err) {
+            return handleError(res, err);
+        }
+        return res.json(200, cards);
+    });
+};
 
+exports.upgrade = function(req, res) {
+    var locale = 'ruRU';
+    mashape.get('?locale=' + locale, function(result) {
+        mashape.getInfo(function(info) {
+            info = info.body;
+            ExternalCards.create({ patch: info.patch, cards: result.body }, function(err, cards) {
+                if (err) {
+                    return handleError(res, err);
+                }
 
+                migration.fromHearthStoneApiToMongoCards(result).then(function(addedCards) {
+                    var msg = 'Migration complete, cards overall: ' + addedCards.length;
+                    console.log(msg);
+
+                    return res.json(200, msg);
+                });
+            });
+        });
+    });
+};
+
+exports.info = function(req, res) {
+    mashape.getInfo(function(info) {
+        info = info.body;
+        var returnInfo = {
+            currentPatch: info.patch
+        };
+
+        ExternalCards.find()
+            .select('patch')
+            .exec(function(err, patches) {
+                if (err) {
+                    return handleError(res, err);
+                }
+
+                returnInfo.patches = patches;
+
+                return res.json(200, returnInfo);
+            });
+    });
 };
 
 // Get a couple of cards

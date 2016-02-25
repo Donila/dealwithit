@@ -5,10 +5,11 @@ angular.module('dealwithitApp')
     $routeProvider
       .when('/admin', {
         templateUrl: 'app/admin/admin.html',
-        controller: 'AdminCtrl'
+        controller: 'AdminCtrl',
       })
       .when('/admin/cards', {
         templateUrl: 'app/admin/cards.html',
-        controller: 'AdminCardsCtrl'
+          controller: 'AdminCardsCtrl',
+          authenticate: true
       });
   });

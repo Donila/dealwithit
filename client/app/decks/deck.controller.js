@@ -16,6 +16,8 @@ angular.module('dealwithitApp')
         $scope.filterType = '';
         $scope.filterText = '';
 
+        $scope.images = [];
+
         var start = moment();
         console.log('start of downloading cards...');
 
@@ -43,6 +45,8 @@ angular.module('dealwithitApp')
         $http.get('/api/cards?locale=ruRU', { cache: true }).success(function(cards) {
             $scope.cards = cards;
 
+            $scope.images = _.compact(_.map(cards, 'img'));
+
             if($routeParams.id) {
                 $http.get('/api/decks/' + $routeParams.id).success(function(result) {
                     $scope.deck = result;
@@ -59,7 +63,7 @@ angular.module('dealwithitApp')
                 });
             }
 
-            console.log('cards loaded in ' + moment().diff(start, 'seconds') + ' seconds');
+            console.log('cards loaded in ' + moment().diff(start, 'ms') + ' ms');
 
             $scope.basicCards = _.sortBy(_.where($scope.cards, function(card) {
                 return basicCondition(card);
@@ -89,6 +93,16 @@ angular.module('dealwithitApp')
                 $scope.hero = _.findWhere($scope.heroes, { playerClass: $routeParams.hero });
             }
         });
+
+        $scope.onImgLoad = function(event, card) {
+            var actualCard = _.findWhere($scope.filteredCards, { cardId: card.cardId });
+            actualCard.loaded = true;
+            console.log(card.cardId, 'loaded');
+        };
+
+        $scope.getCardSrc = function(card) {
+            return 'assets/images/cards/ruRU/' + card.img.substr(card.img.lastIndexOf('/') + 1);
+        };
 
         $scope.pickHero = function(hero) {
             $scope.hero = hero;
