@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dealwithitApp')
-    .controller('AdminCardsCtrl', function ($scope, $http, Auth) {
+    .controller('AdminCardsCtrl', function ($scope, $http) {
         $scope.patchOk = true;
         $http.get('/api/cards/info', {}).success(function(info) {
             $scope.info = info;
@@ -18,6 +18,6 @@ angular.module('dealwithitApp')
             }).error(function(error) {
                 $scope.error = error;
                 $scope.upgrading = false;
-            })
-        }
+            });
+        };
     });
